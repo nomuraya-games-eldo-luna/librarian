@@ -1,0 +1,89 @@
+# librarian/paths.yaml
+# 執筆支援システムのパス管理
+# 最終更新: 2025-12-29
+
+version: "1.0"
+repository: "librarian"
+description: "小説・ゲームシナリオなどの執筆プロジェクトを支援する汎用的な執筆支援システム"
+
+# 内部パス（このリポジトリ内）
+internal:
+  framework:
+    root: "framework"
+    scene_navigation: "framework/scene-navigation.md"
+
+  claude:
+    root: "claude"
+    librarian: "claude/librarian.md"
+
+  gemini:
+    root: "gemini"
+    # 将来追加
+
+  chatgpt:
+    root: "chatgpt"
+    # 将来追加
+
+  docs:
+    root: "docs"
+    scene_heading_format: "docs/scene-heading-format.md"
+
+  prompts:
+    root: "prompts"
+    scene_generation: "prompts/scene-generation.md"
+    quality_check: "prompts/quality-check.md"
+    context_presets: "prompts/context-presets.md"
+
+  scripts:
+    root: "scripts"
+    generate_metadata: "scripts/generate-metadata.sh"
+    validate_markers: "scripts/validate-markers.sh"
+    fix_scene_headings: "scripts/fix-scene-headings.sh"
+    pre_commit_check: "scripts/pre-commit-check.sh"
+    install_hooks: "scripts/install-hooks.sh"
+
+  readme: "README.md"
+
+# 外部リポジトリへの参照（librarianは独立しているため基本的に不要）
+external: {}
+
+# エクスポート定義（他リポジトリから参照される）
+exports:
+  framework: "framework/scene-navigation.md"
+  claude: "claude/librarian.md"
+  docs_format: "docs/scene-heading-format.md"
+  prompts_scene_generation: "prompts/scene-generation.md"
+  prompts_quality_check: "prompts/quality-check.md"
+  prompts_context_presets: "prompts/context-presets.md"
+  scripts: "scripts"
+
+# 利用ガイド
+usage:
+  principle: |
+    このlibrarianリポジトリは汎用的な執筆支援システムです。
+    プロジェクト固有のINDEXやメタデータは各プロジェクトリポジトリの .llms/ に配置します。
+
+  integration_example: |
+    各プロジェクトでの設定例:
+
+    RPG-1/paths.yaml:
+      external:
+        librarian:
+          root: "../librarian"
+          framework: "../librarian/framework/scene-navigation.md"
+          claude: "../librarian/claude/librarian.md"
+          scripts: "../librarian/scripts"
+
+    使用例:
+      ../librarian/scripts/generate-metadata.sh 物語/part1/chapter-1.md
+
+  reference_example: |
+    ドキュメント内での参照:
+      "詳細は paths.external.librarian.framework を参照"
+      → ../librarian/framework/scene-navigation.md
+
+  reusability: |
+    他オーガニゼーションでも再利用可能:
+    1. librarianリポジトリをクローン
+    2. 執筆プロジェクトの.llms/にプロジェクト固有データを配置
+    3. paths.yamlでlibrarianを参照
