@@ -32,6 +32,10 @@ librarian/
 ├── chatgpt/                     # ChatGPT固有の実装（将来追加）
 ├── docs/                        # ドキュメント・仕様
 │   └── scene-heading-format.md  # シーン見出しフォーマット仕様
+├── prompts/                     # プロンプトテンプレート
+│   ├── scene-generation.md      # シーン生成プロンプト
+│   ├── quality-check.md         # 品質チェックプロンプト
+│   └── context-presets.md       # コンテキストプリセット
 └── scripts/                     # 自動化スクリプト
     ├── generate-metadata.sh     # メタデータ自動生成
     ├── validate-markers.sh      # markerバリデーション
@@ -95,6 +99,7 @@ rpg_adv_notitle/.llms/から以下を移行：
 - framework/scene-navigation.md
 - claude/librarian.md
 - docs/scene-heading-format.md
+- prompts/*.md（scene-generation.md、quality-check.md、context-presets.md）
 - scripts/*.sh
 
 詳細は [.github-private/decisions/003-llms-directory-separation.md](https://github.com/nomuraya-games-eldo-luna/.github-private/blob/main/decisions/003-llms-directory-separation.md) を参照。
