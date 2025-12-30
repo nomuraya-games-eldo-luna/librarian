@@ -1,0 +1,73 @@
+# 禁止表現ルール定義（汎用）
+#
+# このファイルは librarian/scripts/detect-forbidden-expressions.sh から参照される
+# プロジェクト固有のルールは {project}/librarian/rules/forbidden-expressions.yaml で追加定義
+#
+# 最終更新: 2025-12-30
+
+# カテゴリごとの検出パターン
+categories:
+  # 時間表現（ファンタジー世界観向け）
+  time_expressions:
+    enabled: true
+    patterns:
+      - id: time_of_day
+        pattern: "夕方|夜明け|真夜中"
+        description: "夕方・夜明け・真夜中"
+        severity: error
+
+      - id: sun_movement
+        pattern: "[^夕朝]日が[昇沈]|^日が[昇沈]|陽が[上沈]"
+        description: "日が昇る・日が沈む"
+        severity: error
+        note: "「夕日」「朝日」は許容"
+
+      - id: time_unit
+        pattern: "[一二三四五六七八九十半]刻[^まん]|[一二三四五六七八九十半]刻$"
+        description: "〜刻（時間単位）"
+        severity: error
+        note: "「刻まれ」「刻んだ」は除外"
+
+      - id: day_count
+        pattern: "十日|半日ほど|一日[がだで]"
+        description: "〜日（日数）"
+        severity: error
+        note: "「木漏れ日」「夕日」「日常」は除外"
+
+      - id: period
+        pattern: "一週間|[一二三]ヶ月|[一二三]年"
+        description: "週・月・年"
+        severity: error
+
+      - id: relative_date
+        pattern: "今日|明日|昨日|去年|来年|来月|先月"
+        description: "今日・明日・昨日・去年・来年・来月・先月"
+        severity: error
+
+  # 年齢表現
+  age_expressions:
+    enabled: true
+    patterns:
+      - id: age
+        pattern: "[0-9一二三四五六七八九十]+歳"
+        description: "〜歳（年齢）"
+        severity: error
+
+  # 要確認（false positive の可能性あり）
+  review_required:
+    enabled: true
+    patterns:
+      - id: meal_time
+        pattern: "朝食|昼食|昼飯|夕食|夕飯|朝ごはん|昼ごはん|夕ごはん"
+        description: "食事の時間帯表現（要確認）"
+        severity: warning
+
+      - id: time_of_day_compound
+        pattern: "今朝|毎朝|朝から|昼から|昼過ぎ|昼間"
+        description: "時間帯表現（要確認）"
+        severity: warning
+
+# デフォルトで無効なカテゴリ（プロジェクト固有で有効化）
+# project_specific:
+#   enabled: false
+#   patterns: []
